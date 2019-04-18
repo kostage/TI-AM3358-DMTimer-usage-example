@@ -1,0 +1,6 @@
+config PEL_DMTIMER_DRV
+	tristate "DMTIMER dummy example"
+	help
+		Simply toggles pin
+
+

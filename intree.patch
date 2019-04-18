@@ -1,0 +1,52 @@
+diff --git a/arch/arm/boot/dts/am335x-boneblack-uboot-univ.dts b/arch/arm/boot/dts/am335x-boneblack-uboot-univ.dts
+index 1e279a06da23..b3e2b3c78614 100644
+--- a/arch/arm/boot/dts/am335x-boneblack-uboot-univ.dts
++++ b/arch/arm/boot/dts/am335x-boneblack-uboot-univ.dts
+@@ -40,3 +40,24 @@
+ &mmc1 {
+ 	vmmc-supply = <&vmmcsd_fixed>;
+ };
++
++&ocp {
++	P9_27_pinmux {
++		status = "disabled";
++	};
++
++	cape-universal {
++		P9_27 {
++			init-low;
++		};
++	};
++
++	dmtimer_toggler0: dmimer_toggler@0 {
++		compatible = "plng,dmtimer_toggler";
++		status = "okay";
++		ti,timers = <&timer4>;
++                pinctrl-names = "default";
++                pinctrl-0 = <&P9_27_gpio_pd_pin>;
++		pin2toggle-gpios = <&gpio3 19 0>;
++	};
++};
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index f1c4c891cda3..af1e8f8cc692 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -549,4 +549,5 @@ source "drivers/misc/genwqe/Kconfig"
+ source "drivers/misc/cape/Kconfig"
+ source "drivers/misc/echo/Kconfig"
+ source "drivers/misc/cxl/Kconfig"
++source "drivers/../../dmtimer_drv/Kconfig"
+ endmenu
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index 3225f1e37dfc..0381b3052abb 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -61,6 +61,8 @@ obj-$(CONFIG_ASPEED_LPC_CTRL)	+= aspeed-lpc-ctrl.o
+ obj-$(CONFIG_ASPEED_LPC_SNOOP)	+= aspeed-lpc-snoop.o
+ obj-$(CONFIG_PCI_ENDPOINT_TEST)	+= pci_endpoint_test.o
+ 
++obj-$(CONFIG_PEL_DMTIMER_DRV)	+= ../../../dmtimer_drv/
++
+ lkdtm-$(CONFIG_LKDTM)		+= lkdtm_core.o
+ lkdtm-$(CONFIG_LKDTM)		+= lkdtm_bugs.o
+ lkdtm-$(CONFIG_LKDTM)		+= lkdtm_heap.o
