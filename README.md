@@ -6,6 +6,8 @@ Toggle happens in simple non-threaded irq handler.
 I made this driver to compare accuracy of dmtimer and hrtimer framework.
 dmtimer appears to be 10 times more precise and it's irq latency +/-10usec unstable, when hrtimer shoots with 100 usec instability.
 
+Eventually I didn't need it, maybe it helps somebody!
+
 ## BBB distro used
 To test driver I used AMAZING debian distro found here:
 https://github.com/RobertCNelson/ti-linux-kernel-dev
